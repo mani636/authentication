@@ -1,10 +1,10 @@
-require("dotenv").config();
-const express = require("express");
+require('dotenv').config();
+const express = require('express');
 const app = express();
-const cors = require("cors");
-const connection = require("./db");
-const userRoutes = require("./routes/users");
-const authRoutes = require("./routes/auth");
+const cors = require('cors');
+const connection = require('./db');
+const userRoutes = require('./routes/users');
+const authRoutes = require('./routes/auth');
 
 // database connection
 connection();
@@ -13,9 +13,15 @@ connection();
 app.use(express.json());
 app.use(cors());
 
-// routes
-app.use("/api/users", userRoutes);
-app.use("/api/auth", authRoutes);
+// health check route
+app.get('/', (req, res) => {
+  res.send('API is running...');
+});
 
+// routes
+app.use('/api/users', userRoutes);
+app.use('/api/auth', authRoutes);
+
+// start server
 const port = process.env.PORT || 8080;
-app.listen(port, console.log(`Listening on port ${port}...`));
+app.listen(port, () => console.log(`Listening on port ${port}...`));
