@@ -5,6 +5,7 @@ const cors = require('cors');
 const connection = require('./db');
 const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
+const path = require('path');
 
 // database connection
 connection();
@@ -13,9 +14,11 @@ connection();
 app.use(express.json());
 app.use(cors());
 
-// health check route
-app.get('/', (req, res) => {
-  res.send('API is running...');
+// Serve frontend
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
 });
 
 // routes
