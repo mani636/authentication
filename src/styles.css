@@ -1,0 +1,12 @@
+input {
+  margin: 8px;
+  padding: 8px;
+  width: 200px;
+}
+button {
+  padding: 10px 20px;
+  margin: 10px;
+}
+p {
+  color: red;
+}
